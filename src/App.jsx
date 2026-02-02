@@ -1,16 +1,40 @@
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import ForgotPassword from "./components/auth/ForgotPassword";
+import ProtectedRoute from "./components/protected/ProtectedRoute";
+import "./App.css";
+import TeacherDashboard from "./pages/TeacherDashboard";
 
 function App() {
-
   return (
-    <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-800">
-        <h1 className="text-4xl font-bold text-white">
-          START YOUR PROJECT
-        </h1>
-      </div>
-    </>
-  )
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          
+          {/* Common Auth */}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute allowedRoles={['student']} />}>
+            <Route path="/dashboard/student" element={<StudentDashboard />} />
+          </Route>
+          
+          <Route element={<ProtectedRoute allowedRoles={['teacher']} />}>
+            <Route path="/dashboard/teacher" element={<TeacherDashboard />} />
+          </Route>
+
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
