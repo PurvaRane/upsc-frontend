@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --parchment: #fdfbf7;
+  --navy: #1e293b;
+  --indigo-deep: #312e81;
+  --saffron-muted: #d97706;
+  --olive-muted: #65a30d;
+}
+
+body {
+  background-color: var(--parchment);
+  color: var(--navy);
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-serif {
+  font-family: "Libre Baskerville", serif;
+}
+
+.input {
+  @apply w-full px-4 py-3 bg-white border border-slate-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-slate-800 transition-all text-slate-800 placeholder-slate-400 text-sm;
+}
+
+.btn-primary {
+  @apply bg-[#1e293b] text-white px-6 py-3 rounded-sm font-semibold hover:bg-slate-800 active:bg-slate-900 transition-all shadow-sm border border-[#1e293b];
+}
+
+.btn-secondary {
+  @apply bg-white text-slate-800 px-6 py-2 rounded-sm font-medium border border-slate-300 hover:bg-slate-50 transition-all;
+}
+
+/* Stable card without elevation blur */
+.grounded-card {
+  @apply bg-white border border-slate-200 shadow-sm p-8;
+}
