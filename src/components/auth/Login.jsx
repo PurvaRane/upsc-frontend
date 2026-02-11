@@ -13,9 +13,9 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Default mock login
-    login({ role: "student", email: "user@example.com" });
-    navigate("/dashboard/student");
+    const role = email.trim().toLowerCase() === "teacher" ? "teacher" : "student";
+    login({ role, email: email.trim() || "student" });
+    navigate(role === "teacher" ? "/dashboard/teacher" : "/dashboard/student");
   };
 
   return (
@@ -68,10 +68,10 @@ const Login = () => {
 
                 <input
                   className={`input ${email === "" ? "pl-12" : "pl-4"}`}
-                  type="email"
+                  type="text"
+                  placeholder="Type 'student' to login"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                 />
               </div>
             </div>
@@ -104,7 +104,6 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                 />
 
                 <button
